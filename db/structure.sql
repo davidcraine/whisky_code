@@ -32,7 +32,7 @@ CREATE TABLE public.ar_internal_metadata (
 CREATE TABLE public.distilleries (
     id bigint NOT NULL,
     owner_name character varying,
-    operator_name character varying,
+    operating_name character varying,
     permit_number character varying,
     street character varying,
     city character varying,
