@@ -1,0 +1,12 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Distilleries</h1>
+
+<div id="distilleries">
+  <% @distilleries.each do |distillery| %>
+    <p>
+      <%= link_to distillery.owner_name, distillery %>
+    </p>
+  <% end %>
+</div>
+

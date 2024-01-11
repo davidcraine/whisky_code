@@ -1,0 +1,8 @@
+<h1><%= @distillery.owner_name %></h1>
+<div id="<%= dom_id distillery %>">
+    <% @distillery.filtered_attributes.each do |attr| %>
+        <%= content_tag :p do %>
+            <%= attr.first %>: <%= attr.last %>
+        <% end %>
+    <% end %>
+</div>
