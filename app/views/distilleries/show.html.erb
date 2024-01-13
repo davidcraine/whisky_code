@@ -5,3 +5,11 @@
 <div>
   <%= link_to "Back to Deistilleries", distilleries_path %>
 </div>
+
+<%= content_tag(:iframe, nil, 
+                src: "https://www.google.com/maps/embed/v1/place?q=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY",
+                width: "600",
+                height: "450",
+                frameborder: "0",
+                style: "border:0;",
+                allowfullscreen: "") %>
