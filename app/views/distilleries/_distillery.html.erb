@@ -1,8 +1,11 @@
-<h1><%= @distillery.owner_name %></h1>
-<div id="<%= dom_id distillery %>">
-    <% @distillery.filtered_attributes.each do |attr| %>
-        <%= content_tag :p do %>
-            <%= attr.first %>: <%= attr.last %>
+<%= content_tag :div, class: 'card' do %>
+    <%= content_tag :div, id: "distillery", class: "card-body" do %>
+    <%= content_tag :h3, @distillery.owner_name, class: 'card-title' %>
+        <% @distillery.filtered_attributes.each do |attr| %>
+            <%= content_tag :p, class: 'card-text' do %>
+                <%=  content_tag :label, attr.first.titleize, for: attr.first, class: "col-sm-2 col-form-label col-form-label-lg" %>
+                <%= content_tag :label, attr.last, id: attr.first, class: "form-control form-control-lg" %>
+            <% end %>
         <% end %>
     <% end %>
-</div>
+<% end %>

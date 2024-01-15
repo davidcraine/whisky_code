@@ -1,14 +1,20 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @distillery %>
+<div class='container'>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"> <%= link_to "Distilleries", distilleries_path, class: 'link-primary' %></li>
+      <li class="breadcrumb-item active" aria-current="page"><%= @distillery.owner_name %></li>
+    </ol>
+  </nav>
 
-<div>
-  <%= link_to "Back to Deistilleries", distilleries_path %>
+  <%= render @distillery %>
+
+  <%= turbo_stream_from :gmap_iframe %>
+  <%= button_to 'Show Map', load_gmap_iframe_distillery_path, remote: true, method: :post, class:'btn btn-primary' %>
+
+  <div id="iframes">
+    <%= render partial: 'gmap_iframe', object: @distillery  %>
+  </div>
 </div>
 
-<%= turbo_stream_from :gmap_iframe %>
-<%= button_to 'Show Map', load_gmap_iframe_distillery_path, remote: true, method: :post %>
-
-<div id="iframes">
-  <%= render partial: 'gmap_iframe', object: @distillery  %>
-</div>
