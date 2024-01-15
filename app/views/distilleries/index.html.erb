@@ -8,5 +8,7 @@
       <%= link_to distillery.owner_name, distillery %>
     </p>
   <% end %>
+
+  <%= paginate @distilleries, window: 2 %>
 </div>
 

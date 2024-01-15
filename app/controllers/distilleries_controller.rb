@@ -6,7 +6,7 @@ class DistilleriesController < ApplicationController
 
   # GET /distilleries or /distilleries.json
   def index
-    @distilleries = Distillery.all
+    @distilleries = Distillery.page(params[:page]).per(20)
   end
 
   # GET /distilleries/1 or /distilleries/1.json
@@ -24,8 +24,4 @@ class DistilleriesController < ApplicationController
     @distillery = Distillery.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
-  def distillery_params
-    params.fetch(:test, {})
-  end
 end
