@@ -6,10 +6,9 @@
   <%= link_to "Back to Deistilleries", distilleries_path %>
 </div>
 
-<%= content_tag(:iframe, nil, 
-                src: @distillery.google_map_embed_link,
-                width: "600",
-                height: "450",
-                frameborder: "0",
-                style: "border:0;",
-                allowfullscreen: "") %>
+<%= turbo_stream_from :gmap_iframe %>
+<%= button_to 'Show Map', load_gmap_iframe_distillery_path, remote: true, method: :post %>
+
+<div id="iframes">
+  <%= render partial: 'gmap_iframe', object: @distillery  %>
+</div>

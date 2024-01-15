@@ -1,0 +1,12 @@
+<!-- app/views/distilleries/_gmap_iframe.html.erb -->
+<% if @show_iframe %>
+  <%= turbo_frame_tag 'gmap_iframe' do %>
+    <%= content_tag(:iframe, nil, 
+                src: @distillery.google_map_embed_link,
+                width: "600",
+                height: "450",
+                frameborder: "0",
+                style: "border:0;",
+                allowfullscreen: "") %>
+  <% end %>
+<% end %>
