@@ -22,7 +22,7 @@ services:
     command: "./bin/rails s -b '0.0.0.0'"
     environment:
       - RAILS_ENV=development
-      - RAILS_MASTER_KEY=ac71f7deec3ddf4f165d8ef6819f7861
+      - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
       - POSTGRES_HOST=db
       - POSTGRES_DB=${DATABASE_NAME}_development
       - POSTGRES_USER=${DATABASE_USER}
