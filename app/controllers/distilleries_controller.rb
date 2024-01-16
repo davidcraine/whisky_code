@@ -23,5 +23,4 @@ class DistilleriesController < ApplicationController
   def set_distillery
     @distillery = Distillery.find(params[:id])
   end
-
 end
