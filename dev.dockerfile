@@ -14,7 +14,7 @@ ENV RAILS_ENV="development" \
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config bash bash-completion postgresql   # 
+    apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config bash bash-completion postgresql nodejs  # 
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./
