@@ -2,13 +2,20 @@
 
 <p class='h1 text-center'>Distilleries</p>
 
-<div id="distilleries" class="container">
+<div class='container bg-info bg-gradient mb-5 p-2'>
+  <div class="state-dropdown btn" >
+    <%= select_tag 'dropdown', options_for_select(%w[All AK]), include_blank: 'Select a State', class: 'form-select form-control', data: { controller: 'dropdown', action: 'change->dropdown#handleChange' } %>
+  </div>
+</div>
+
+<div id="distilleries" class="container border">
   <% @distilleries.each do |distillery| %>
     <p>
       <%= link_to distillery.owner_name, distillery %>
     </p>
   <% end %>
-
-  <%= paginate @distilleries, window: 2 %>
 </div>
+<div class="container mt-3">
+  <%= paginate @distilleries, window: 2 %>
+  </div>
 

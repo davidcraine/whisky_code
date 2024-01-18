@@ -17,6 +17,10 @@ class DistilleriesController < ApplicationController
     render turbo_stream: turbo_stream.replace('iframes', partial: 'gmap_iframe')
   end
 
+  def load_filtered_list
+    # filters teh lsit of distileries and replaces the contents of the frame
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
