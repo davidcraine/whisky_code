@@ -104,6 +104,27 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
+-- Name: index_distilleries_on_operating_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_distilleries_on_operating_name ON public.distilleries USING btree (operating_name);
+
+
+--
+-- Name: index_distilleries_on_owner_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_distilleries_on_owner_name ON public.distilleries USING btree (owner_name);
+
+
+--
+-- Name: index_distilleries_on_state; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_distilleries_on_state ON public.distilleries USING btree (state);
+
+
+--
 -- PostgreSQL database dump complete
 --
 

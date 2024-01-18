@@ -1,3 +1,5 @@
 # .rubocop.yml
 Style/StringLiterals:
   Enabled: false
+Metrics/MethodLength:
+  Enabled: false
