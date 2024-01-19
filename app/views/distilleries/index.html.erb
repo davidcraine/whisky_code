@@ -9,7 +9,7 @@
         <%= select_tag 'dropdown', options_for_select(state_options_for_select, selected: @current_filter), include_blank: 'Select a State', class: 'form-select form-control', data: { controller: 'dropdown', action: 'change->dropdown#handleChange' } %>
       </div>
       <div class='col-md-6'>
-        <%= text_field_tag 'search-field', nil, placeholder: 'Enter Search Text', class: 'form-control' %>
+        <%= text_field_tag 'search-field', nil, placeholder: 'Enter Search Text', class: 'form-control', data: { controller: 'text-search', action: 'keyup->text-search#search' } %>
       </div>
     </div >
   </div>

@@ -12,3 +12,6 @@ application.register("hello", HelloController)
 
 import LinkRedirectController from "./link_redirect_controller"
 application.register("link-redirect", LinkRedirectController)
+
+import TextSearchController from "./text_search_controller"
+application.register("text-search", TextSearchController)

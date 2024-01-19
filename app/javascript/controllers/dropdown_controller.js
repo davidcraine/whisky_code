@@ -12,7 +12,7 @@ export default class extends Controller {
   async handleChange(event) {
     const selectedValue = event.target.value
     const url = new URL(window.location.href);
-    url.search = '';
+    url.search = '';  // clear the existing search params
     url.searchParams.set('filter', selectedValue);
     window.location.href = url;
   }

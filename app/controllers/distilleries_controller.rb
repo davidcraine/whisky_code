@@ -2,11 +2,20 @@
 
 # Distillieries Controller
 class DistilleriesController < ApplicationController
+  include DistilleriesConcern
+
   before_action :set_distillery, only: %i[show load_gmap_iframe]
 
   # GET /distilleries or /distilleries.json
   def index
-    @distilleries = filtered_distilleries.order(owner_name: :asc).page(params[:page]).per(20)
+    puts request.inspect
+    filter = DistilleryFilter.new(Distillery.all)
+    @distilleries = filter.by_state(current_filter).like_owner(current_query).result.order(owner_name: :asc).page(params[:page]).per(20)
+    if turbo_frame_request?
+      render turbo_stream: turbo_stream.replace('distilleries-frame', partial: 'distilleries')
+    else
+      render :index
+    end
   end
 
   # GET /distilleries/1 or /distilleries/1.json
@@ -17,21 +26,14 @@ class DistilleriesController < ApplicationController
     render turbo_stream: turbo_stream.replace('iframes', partial: 'gmap_iframe')
   end
 
-  def search
-    @posts = Post.where('title LIKE ?', "%#{params[:query]}%")
-    render partial: 'posts/search_results', locals: { posts: @posts }
-  end
-
   private
-
-  def filtered_distilleries
-    return Distillery.all unless current_filter.present? && current_filter != 'All'
-
-    Distillery.by_state(current_filter)
-  end
 
   def current_filter
     @current_filter = params[:filter]
+  end
+
+  def current_query
+    @current_query = params[:query]
   end
 
   def set_distillery
