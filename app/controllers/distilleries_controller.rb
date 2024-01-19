@@ -6,7 +6,7 @@ class DistilleriesController < ApplicationController
 
   # GET /distilleries or /distilleries.json
   def index
-    @distilleries = Distillery.page(params[:page]).per(20)
+    @distilleries = filtered_distilleries.order(owner_name: :asc).page(params[:page]).per(20)
   end
 
   # GET /distilleries/1 or /distilleries/1.json
@@ -17,8 +17,12 @@ class DistilleriesController < ApplicationController
     render turbo_stream: turbo_stream.replace('iframes', partial: 'gmap_iframe')
   end
 
-  def load_filtered_list
-    # filters teh lsit of distileries and replaces the contents of the frame
+  def filtered_distilleries
+    puts "PARAMS"
+    puts request.params
+    return Distillery.all unless params[:filter].present? && params[:filter] != 'All'
+
+    Distillery.by_state(params[:filter])
   end
 
   private
