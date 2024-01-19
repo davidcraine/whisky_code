@@ -8,11 +8,12 @@ class DistilleriesController < ApplicationController
 
   # GET /distilleries or /distilleries.json
   def index
-    puts request.inspect
     filter = DistilleryFilter.new(Distillery.all)
     @distilleries = filter.by_state(current_filter).like_owner(current_query).result.order(owner_name: :asc).page(params[:page]).per(20)
     if turbo_frame_request?
-      render turbo_stream: turbo_stream.replace('distilleries-frame', partial: 'distilleries')
+      # extract the name fo the turbo frame specified in the request
+      frame_name = request.headers['Turbo-Frame']
+      render turbo_stream: turbo_stream.replace(frame_name, partial: 'distilleries')
     else
       render :index
     end
