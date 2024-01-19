@@ -10,6 +10,7 @@ I had a few things I wanted to test with this app:
 * Use database seeding to setup the initail data
 * Use BootStrap 5 for styling
 * Use kaminari for pagination
+* use Stimulus to handle dropdown events
 
 The goal is that you should be able to run the application by running
 - docker-compose web build
