@@ -9,3 +9,6 @@ application.register("dropdown", DropdownController)
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import LinkRedirectController from "./link_redirect_controller"
+application.register("link-redirect", LinkRedirectController)

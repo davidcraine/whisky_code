@@ -1,0 +1,5 @@
+<%= turbo_frame_tag "distilleries-frame" do %> 
+    <% @distilleries.each do |distillery| %>
+        <p><%= link_to distillery.owner_name, distillery, data: { controller: 'link-redirect', action: 'click->link-redirect#click'} %></p>
+    <% end %>
+<% end %>

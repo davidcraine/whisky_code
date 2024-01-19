@@ -1,3 +1,6 @@
+// this controller proceses the change event from a drop down element
+// and and uses the selected item as a filter element and adds
+// the filter param to the url before redirecting
 import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="dropdown"

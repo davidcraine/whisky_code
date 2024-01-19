@@ -17,17 +17,23 @@ class DistilleriesController < ApplicationController
     render turbo_stream: turbo_stream.replace('iframes', partial: 'gmap_iframe')
   end
 
-  def filtered_distilleries
-    puts "PARAMS"
-    puts request.params
-    return Distillery.all unless params[:filter].present? && params[:filter] != 'All'
-
-    Distillery.by_state(params[:filter])
+  def search
+    @posts = Post.where('title LIKE ?', "%#{params[:query]}%")
+    render partial: 'posts/search_results', locals: { posts: @posts }
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
+  def filtered_distilleries
+    return Distillery.all unless current_filter.present? && current_filter != 'All'
+
+    Distillery.by_state(current_filter)
+  end
+
+  def current_filter
+    @current_filter = params[:filter]
+  end
+
   def set_distillery
     @distillery = Distillery.find(params[:id])
   end
