@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "welcome/index"
   resources :tests
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -6,7 +7,7 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get 'up' => 'rails/health#show', as: :rails_health_check
 
-  root 'distilleries#index'
+  root 'welcome#index'
 
   resources :distilleries, only: %i[index show] do
     member do
