@@ -13,12 +13,13 @@ export default class extends Controller {
     if (event.target.value.length > 0) {
       this.paginationElement.hide();
       const url = new URL(window.location.href);
-      url.search = '';  // clear the existing search params
-      url.searchParams.set('query', event.target.value);
+      url.search = '';  // clear the existing search params - we only want to filter on search text
+      url.searchParams.set('query', event.target.value);  //set the query param to the contents of the search field
       Turbo.visit(url, { action: 'replace', frame: 'distilleries-frame' });
     }
     else {
-      this.paginationElement.show();
+      window.location.reload(); //reload the window to initiate the existing filters in the url
+      //this.paginationElement.show();
     }
   }
 }

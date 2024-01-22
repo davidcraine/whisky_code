@@ -3,7 +3,7 @@
 <div class='container'>
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"> <%= link_to "Distilleries", distilleries_path, class: 'link-primary' %></li>
+      <li class="breadcrumb-item"> <%= link_to "Distilleries", distilleries_path(filter: current_filter), class: 'link-primary' %></li>
       <li class="breadcrumb-item active" aria-current="page"><%= @distillery.owner_name %></li>
     </ol>
   </nav>

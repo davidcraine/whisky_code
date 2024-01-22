@@ -4,6 +4,8 @@
 class DistilleriesController < ApplicationController
   include DistilleriesConcern
 
+  helper_method :current_filter
+
   before_action :set_distillery, only: %i[show load_gmap_iframe]
 
   # GET /distilleries or /distilleries.json
