@@ -10,7 +10,7 @@
 
   <%= render @distillery %>
 
-  <%= turbo_stream_from :gmap_iframe %>
+
   <%= button_to 'Show Map', load_gmap_iframe_distillery_path, remote: true, method: :post, class:'btn btn-primary' %>
 
   <div id="iframes">

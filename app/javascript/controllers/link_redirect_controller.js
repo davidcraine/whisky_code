@@ -8,6 +8,7 @@ export default class extends Controller {
   }
 
   click(event) {
-    Turbo.visit(event.currentTarget.href);
+    window.location.href = event.currentTarget.href
+    //Turbo.visit(event.currentTarget.href);
   }
 }
