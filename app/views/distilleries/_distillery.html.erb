@@ -3,8 +3,14 @@
     <%= content_tag :h3, @distillery.owner_name, class: 'card-title' %>
         <% @distillery.filtered_attributes.each do |attr| %>
             <%= content_tag :p, class: 'card-text' do %>
-                <%=  content_tag :label, attr.first.titleize, for: attr.first, class: "col-sm-2 col-form-label col-form-label-lg" %>
-                <%= content_tag :label, attr.last, id: attr.first, class: "form-control form-control-lg" %>
+                <%= content_tag :div, class: 'row justify-content-start' do %>
+                    <%= content_tag :div, class: 'col-3' do %>
+                        <%=  content_tag :label, attr.first.titleize, for: attr.first, class: "col-form-label col-form-label-lg" %>
+                    <% end %>
+                    <%= content_tag :div, class: 'col-4' do %>
+                        <%= content_tag :label, attr.last, id: attr.first, class: "form-control form-control-lg" %>
+                    <% end %>
+                <% end %>
             <% end %>
         <% end %>
     <% end %>
