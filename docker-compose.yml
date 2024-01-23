@@ -30,7 +30,7 @@ services:
       - DATABASE_URL=postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@db:5432/${DATABASE_NAME}_development
     volumes:
       - app-storage:/rails/storage
-      - ./app:/rails/app
+#      - ./app:/rails/app
     depends_on:
       - db
     ports:
