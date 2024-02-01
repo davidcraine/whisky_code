@@ -194,6 +194,11 @@ GEM
     matrix (0.4.2)
     mini_mime (1.1.5)
     minitest (5.20.0)
+    mission_control-jobs (0.1.1)
+      importmap-rails
+      rails (~> 7.1)
+      stimulus-rails
+      turbo-rails
     msgpack (1.7.2)
     net-imap (0.4.7)
       date
@@ -348,6 +353,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   kaminari (~> 1.2.1)
+  mission_control-jobs (~> 0.1.1)
   pg (~> 1.1)
   puma (>= 5.0)
   rails!

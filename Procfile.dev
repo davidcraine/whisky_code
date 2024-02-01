@@ -1,3 +1,2 @@
 web: bin/rails server
 jobs: bundle exec rake solid_queue:start
-css: yarn watch:css
