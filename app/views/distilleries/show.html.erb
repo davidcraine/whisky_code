@@ -8,8 +8,12 @@
     </ol>
   </nav>
 
-  <%= render @distillery %>
+ <!-- 
+ <%= button_tag 'Launch Modal', type: :button, class: 'btn btn-primary', 'data-bs-toggle' => 'modal', 'data-bs-target' => '#test-modal' %> 
+ <%= render partial: 'modal' %>
+ -->
 
+  <%= render @distillery %>
 
   <%= button_to 'Show Map', load_gmap_iframe_distillery_path, remote: true, method: :post, class:'btn btn-primary' %>
 

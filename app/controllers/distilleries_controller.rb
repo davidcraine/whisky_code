@@ -3,6 +3,7 @@
 # Distillieries Controller
 class DistilleriesController < ApplicationController
   include DistilleriesConcern
+  include ModalHelper
 
   helper_method :current_filter
 
