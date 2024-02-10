@@ -1,4 +1,4 @@
-class Api::V1::DistilleriesController < ApplicationController
+class Api::V1::DistilleriesController < Api::ApiController
   def index
     distilleries = Distillery.all
     render json: distilleries, each_serializer: DistillerySerializer
