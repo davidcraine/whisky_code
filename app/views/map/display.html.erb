@@ -1,4 +1,4 @@
-<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ Rails.application.credentials.google_maps_api_key}" %>
+<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ Rails.application.credentials.google_maps_api_key}&libraries=visualization", async: true, defer: true %>
 
 <h1>Map#display</h1>
 <p>Find me in app/views/map/display.html.erb</p>

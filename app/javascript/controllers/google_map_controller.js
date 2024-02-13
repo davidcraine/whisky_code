@@ -13,12 +13,12 @@ export default class extends Controller {
     const heatmapData = [];
     // Add state data to heatmapData array
     // Example: heatmapData.push({ location: new google.maps.LatLng(LATITUDE, LONGITUDE), weight: INTENSITY });
-
-    // this.heatmap = new google.maps.visualization.HeatmapLayer({
-    //   data: heatmapData,
-    //   dissipating: true, // Allow the heat to dissipate
-    //   radius: 20, // Set the radius of influence for each data point
-    //   map: this.map
-    // });
+    heatmapData.push({location: new google.maps.LatLng(36.7783, -119.4179), weight: 0.5}) //center of CA
+    this.heatmap = new google.maps.visualization.HeatmapLayer({
+      data: heatmapData,
+      dissipating: false, // Allow the heat to dissipate
+      radius: 2, // Set the radius of influence for each data point
+      map: this.map
+    });
   }
 }
