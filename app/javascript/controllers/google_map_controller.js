@@ -3,7 +3,10 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="google-map"
 export default class extends Controller {
   connect() {
-    this.initMap($('#dropdown').val())
+    this.waitForGoogleMaps(() => {
+      console.log("Google Maps is initialized")
+    });
+    this.initMap($('#dropdown').val())  //use the current value of the dropdown for the selected state value
   }
 
   initMap(state) {
@@ -60,5 +63,14 @@ export default class extends Controller {
       console.error('There was a problem with your fetch operation:', error);
       return null;
     });
+  }
+
+   waitForGoogleMaps(callback) {
+    const intervalId = setInterval(() => {
+      if (typeof google !== 'undefined' && typeof google.maps !== 'undefined') {
+        clearInterval(intervalId); // Stop the loop
+        callback(); // Call the callback function
+      }
+    }, 100); // Check every 100 milliseconds
   }
 }

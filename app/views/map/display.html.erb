@@ -1,7 +1,11 @@
-<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ Rails.application.credentials.google_maps_api_key}&libraries=visualization", async: true, defer: true %>
+    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ Rails.application.credentials.google_maps_api_key}&libraries=visualization" %>
 
-<h1>HeatMap</h1>
-<%= render partial: 'state_center_data', formats: [:js], layout: false %>
+<div class='container'>
+    <%= link_to 'Back', root_path, data: {turbolinks: false} %>
+  <p class="h1 text-center">Distillery Heatmap</p>
+</div>
+<%= render partial: 'state_center_data' %>
+
 
 <div class='container bg-info bg-gradient mb-5 p-2'>
   <div class="state-dropdown btn" >
