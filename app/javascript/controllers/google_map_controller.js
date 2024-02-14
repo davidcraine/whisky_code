@@ -7,10 +7,12 @@ export default class extends Controller {
   }
 
   initMap(state) {
+    const stateCenterData = JSON.parse($('#state-center-data').text());
     console.log("map controller connecting");
+    const stateCenter = stateCenterData[state]
     this.map = new google.maps.Map($('#heatmap')[0], {
-      center: { lat: 37.8, lng: -96 }, // Center map on the US
-      zoom: 4 // Set initial zoom level
+      center: { lat: stateCenter[0], lng: stateCenter[1]}, // Center map on the US
+      zoom: 6 // Set initial zoom level
     });
 
     const heatmapData = [];

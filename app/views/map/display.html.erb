@@ -1,6 +1,7 @@
 <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ Rails.application.credentials.google_maps_api_key}&libraries=visualization", async: true, defer: true %>
 
 <h1>HeatMap</h1>
+<%= render partial: 'state_center_data', formats: [:js], layout: false %>
 
 <div class='container bg-info bg-gradient mb-5 p-2'>
   <div class="state-dropdown btn" >
