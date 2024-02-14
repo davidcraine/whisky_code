@@ -165,6 +165,7 @@ GEM
     faker (3.2.3)
       i18n (>= 1.8.11, < 2)
     ffi (1.16.3)
+    geocoder (1.8.2)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.1)
@@ -375,6 +376,7 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails (~> 6.4)
   faker
+  geocoder (~> 1.8)
   importmap-rails
   jbuilder
   jquery-rails

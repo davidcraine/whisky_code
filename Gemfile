@@ -83,3 +83,5 @@ end
 gem "solid_queue", "~> 0.2.1"
 
 gem "mission_control-jobs", "~> 0.1.1"
+
+gem "geocoder", "~> 1.8"

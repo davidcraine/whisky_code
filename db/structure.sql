@@ -40,7 +40,9 @@ CREATE TABLE public.distilleries (
     zip character varying,
     county character varying,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    latitude double precision,
+    longitude double precision
 );
 
 
@@ -61,6 +63,41 @@ CREATE SEQUENCE public.distilleries_id_seq
 --
 
 ALTER SEQUENCE public.distilleries_id_seq OWNED BY public.distilleries.id;
+
+
+--
+-- Name: heat_maps; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.heat_maps (
+    id bigint NOT NULL,
+    path character varying,
+    click_type character varying,
+    offset_x double precision,
+    offset_y double precision,
+    xpath text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: heat_maps_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.heat_maps_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: heat_maps_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.heat_maps_id_seq OWNED BY public.heat_maps.id;
 
 
 --
@@ -427,6 +464,13 @@ ALTER TABLE ONLY public.distilleries ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
+-- Name: heat_maps id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.heat_maps ALTER COLUMN id SET DEFAULT nextval('public.heat_maps_id_seq'::regclass);
+
+
+--
 -- Name: solid_queue_blocked_executions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -510,6 +554,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 ALTER TABLE ONLY public.distilleries
     ADD CONSTRAINT distilleries_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: heat_maps heat_maps_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.heat_maps
+    ADD CONSTRAINT heat_maps_pkey PRIMARY KEY (id);
 
 
 --
@@ -598,6 +650,13 @@ ALTER TABLE ONLY public.solid_queue_semaphores
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_distilleries_on_latitude_and_longitude; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_distilleries_on_latitude_and_longitude ON public.distilleries USING btree (latitude, longitude);
 
 
 --
@@ -857,6 +916,8 @@ ALTER TABLE ONLY public.solid_queue_scheduled_executions
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240213171146'),
+('20240212210743'),
 ('20240210030916'),
 ('20240201170332'),
 ('20240201170331'),
