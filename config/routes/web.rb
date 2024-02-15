@@ -14,5 +14,8 @@ Rails.application.routes.draw do
     member do
       post :load_gmap_iframe
     end
+    collection do
+      get :export_to_csv
+    end
   end
 end

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'CSV'
+
 # Distillieries Controller
 class DistilleriesController < ApplicationController
   include DistilleriesConcern
@@ -28,6 +30,27 @@ class DistilleriesController < ApplicationController
   def load_gmap_iframe
     @show_iframe = true
     render turbo_stream: turbo_stream.replace('iframes', partial: 'gmap_iframe')
+  end
+
+  def export_to_csv
+    data = Distillery.all
+
+    # Set up the CSV file path
+    csv_file_path = Rails.root.join('tmp', 'distillery_data_tmp.csv')
+
+    # Write data to the CSV file
+    CSV.open(csv_file_path, 'w') do |csv|
+      # Write the header row
+      csv << (Distillery.column_names - %w[id created_at updated_at])
+
+      # Write data rows
+      data.each do |record|
+        csv << record.attributes.reject { |k, _v| %w[id created_at updated_at].include?(k) }.values
+      end
+    end
+
+    # Send the CSV file as a download
+    send_file csv_file_path, filename: 'distillery_data.csv'
   end
 
   private
