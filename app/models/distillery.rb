@@ -13,7 +13,7 @@ class Distillery < ApplicationRecord
   end
 
   def zip_state
-    [state, zip, 'USA'].join(', ')
+    [long_state_name(state), zip, 'USA'].join(', ')
   end
 
   # returrn the stored lat/long or fetch and update it if it's blank

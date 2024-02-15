@@ -5,10 +5,11 @@ module DistilleriesHelper
     MA MI MN MS MO MT NE NV NH NJ
     NM NY NC ND OH OK OR PA RI SC
     SD TN TX UT VT VA WA WV WI WY
+    DC
   ].freeze
 
   def state_options_for_select
-    ['All'] + STATE_ABBREVIATIONS
+    ['All'] + STATE_ABBREVIATIONS.sort
   end
 
   # these are the coordiantes for the center of each state so that
@@ -24,6 +25,7 @@ module DistilleriesHelper
       "CA" => [36.7014631, -118.755997],
       "CO" => [38.7251776, -105.607716],
       "CT" => [41.6500201, -72.7342163],
+      "DC" => [38.89384735, -76.98804281910948],
       "DE" => [38.6920451, -75.4013315],
       "FL" => [27.7567667, -81.4639835],
       "GA" => [32.3293809, -83.1137366],
@@ -34,8 +36,8 @@ module DistilleriesHelper
       "IA" => [41.9216734, -93.3122705],
       "KS" => [38.27312, -98.5821872],
       "KY" => [37.5726028, -85.1551411],
-      "LA" => [42.4019856, -4.4971252],
-      "ME" => [38.7063799, -8.9722034],
+      "LA" => [26.734884, -80.9534354],
+      "ME" => [45.709097, -68.8590201],
       "MD" => [39.5162401, -76.9382069],
       "MA" => [42.3788774, -72.032366],
       "MI" => [43.6211955, -84.6824346],
