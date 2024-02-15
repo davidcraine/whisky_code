@@ -27,5 +27,8 @@ module WhiskeyCode
     config.active_record.schema_format = :sql
 
     # config.paths.add 'config/routes', eager_load: true
+
+    # Use to disable turbo automatic handling of link_to, form_tag, and form_for
+    # config.turbo.enabled = false
   end
 end
