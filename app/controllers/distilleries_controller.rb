@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'CSV'
+require 'csv'
 
 # Distillieries Controller
 class DistilleriesController < ApplicationController
