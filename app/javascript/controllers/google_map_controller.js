@@ -18,6 +18,11 @@ export default class extends Controller {
       zoom: 6 // Set initial zoom level
     });
 
+    google.maps.event.addListenerOnce(this.map, "idle", () => {
+      // Map is ready, do something
+      console.log("Map is ready");
+    });
+
     const heatmapData = [];
     this.fetchHeatmapData(state)
     .then(data => {
