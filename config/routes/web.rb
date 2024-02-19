@@ -18,4 +18,6 @@ Rails.application.routes.draw do
       get :export_to_csv
     end
   end
+
+  resources :products
 end
