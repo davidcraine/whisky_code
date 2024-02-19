@@ -159,6 +159,38 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: comments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comments (
+    id bigint NOT NULL,
+    commentable_type character varying NOT NULL,
+    commentable_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comments_id_seq OWNED BY public.comments.id;
+
+
+--
 -- Name: distilleries; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -204,6 +236,9 @@ ALTER SEQUENCE public.distilleries_id_seq OWNED BY public.distilleries.id;
 
 CREATE TABLE public.products (
     id bigint NOT NULL,
+    distillery_id bigint,
+    name character varying NOT NULL,
+    rating integer,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -613,6 +648,13 @@ ALTER TABLE ONLY public.active_storage_variant_records ALTER COLUMN id SET DEFAU
 
 
 --
+-- Name: comments id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comments ALTER COLUMN id SET DEFAULT nextval('public.comments_id_seq'::regclass);
+
+
+--
 -- Name: distilleries id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -734,6 +776,14 @@ ALTER TABLE ONLY public.active_storage_variant_records
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comments
+    ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
 
 
 --
@@ -876,6 +926,13 @@ CREATE UNIQUE INDEX index_active_storage_variant_records_uniqueness ON public.ac
 
 
 --
+-- Name: index_comments_on_commentable; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comments_on_commentable ON public.comments USING btree (commentable_type, commentable_id);
+
+
+--
 -- Name: index_distilleries_on_latitude_and_longitude; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -901,6 +958,20 @@ CREATE INDEX index_distilleries_on_owner_name ON public.distilleries USING btree
 --
 
 CREATE INDEX index_distilleries_on_state ON public.distilleries USING btree (state);
+
+
+--
+-- Name: index_products_on_distillery_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_distillery_id ON public.products USING btree (distillery_id);
+
+
+--
+-- Name: index_products_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_name ON public.products USING btree (name);
 
 
 --
@@ -1155,6 +1226,7 @@ ALTER TABLE ONLY public.solid_queue_scheduled_executions
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240219161054'),
 ('20240219153844'),
 ('20240219151811'),
 ('20240219151810'),
