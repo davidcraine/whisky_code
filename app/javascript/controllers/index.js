@@ -10,6 +10,9 @@ application.register("dropdown", DropdownController)
 import DummyController from "./dummy_controller"
 application.register("dummy", DummyController)
 
+import FilteredSelectController from "./filtered_select_controller"
+application.register("filtered-select", FilteredSelectController)
+
 import GoogleMapController from "./google_map_controller"
 application.register("google-map", GoogleMapController)
 

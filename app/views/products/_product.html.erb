@@ -1,2 +1,8 @@
-<div id="<%= dom_id product %>">
+<div id="<%= dom_id product %>" class='row bg-light bg-gradient'>
+    <div class='col col-md-1'>
+        <%= image_tag product.images.first&.variant(resize_to_limit: [100, 100]) || 'default_bottle.png' %>
+    </div>
+    <div class='col'>
+        <%= product.name%>
+    </div>
 </div>
