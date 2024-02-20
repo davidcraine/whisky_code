@@ -25,8 +25,13 @@ export default class extends Controller {
     if (file.type.startsWith("image/")) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        this.imageDataTarget.value = e.target.result;
-        this.previewTarget.src = e.target.result;
+        const image = document.createElement("img");
+        image.src = e.target.result;
+        image.style.maxWidth = "100%";
+        image.style.maxHeight = "200px"; // Set the max height as desired
+        this.previewTarget.appendChild(image);
+        //this.imageDataTarget.value = e.target.result;
+        //this.previewTarget.src = e.target.result;
       };
       reader.readAsDataURL(file);
     }
