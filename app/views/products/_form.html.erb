@@ -30,12 +30,12 @@
     <%= form.file_field :images, multiple: true, class: 'form-control form-control-lg' %>
   </div>
 
-   <div id="image_drop_target" class="drop-target" data-controller="image-drop" data-action="dragover@image-drop=dragover dragleave@image-drop=dragleave drop@image-drop=drop">
-
+   <div id="image_drop_target" class="drop-target container" data-controller="image-drop" data-action="dragover@image-drop=dragover dragleave@image-drop=dragleave drop@image-drop=drop">
     <p>Drop image here</p>
-    <div data-image-drop-target="preview" class="container" style="max-width:200px; max-height: 200px;">
-    <%# <img src="" alt="Preview" data-image-drop-target="preview" class="img-thumbnail" style="max-width:200px; max-height: 200px;"> %>
-    <%= form.hidden_field :image_data, id: 'image_data', data: {image_drop_target: "imageData"} %>
+      <div class="row align-items-start"" data-image-drop-target="preview">
+        <%# <img src="" alt="Preview" data-image-drop-target="preview" class="img-thumbnail" style="max-width:200px; max-height: 200px;"> %>
+        <%= form.hidden_field :image_data, id: 'image_data', data: {image_drop_target: "imageData"} %>
+    </div>
   </div>
 
 

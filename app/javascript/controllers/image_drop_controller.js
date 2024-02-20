@@ -27,8 +27,9 @@ export default class extends Controller {
       reader.onload = (e) => {
         const image = document.createElement("img");
         image.src = e.target.result;
-        image.style.maxWidth = "100%";
+        image.style.maxWidth = "200px";
         image.style.maxHeight = "200px"; // Set the max height as desired
+        image.classList.add("col");
         this.previewTarget.appendChild(image);
         //this.imageDataTarget.value = e.target.result;
         //this.previewTarget.src = e.target.result;
