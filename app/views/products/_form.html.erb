@@ -22,12 +22,21 @@
   <div class="field" data-controller="filtered-select">
     <%= form.label :distillery, "Distillery", class: 'col-frm-label col-form-label-lg' %>
     <input type="text" placeholder="Filter distilleries"  data-action="input->filtered-select#filter" class="form-control">
-    <%= form.select :distillery, options_for_select(Distillery.all.map { |d| [d.owner_name, d.id] }), {}, data: {target: "filtered-select.select", action: "input->filtered-select#filter"},  class: 'form-select form-control ' %>
+    <%= form.select :distillery, options_for_select(Distillery.all.map { |d| [d.owner_name, d.id] }), {}, data: {filtered_select_target: "select", action: "input->filtered-select#filter"},  class: 'form-select form-control ' %>
   </div>
+
   <div class="field">
     <%= form.label :images, class: 'col-frm-label col-form-label-lg' %>
     <%= form.file_field :images, multiple: true, class: 'form-control form-control-lg' %>
   </div>
+
+   <div id="image_drop_target" class="drop-target" data-controller="image-drop" data-action="dragover@image-drop=dragover dragleave@image-drop=dragleave drop@image-drop=drop">
+
+    <p>Drop image here</p>
+    <img src="" alt="Preview" data-image-drop-target="preview" class="img-thumbnail" style="max-width:200px; max-height: 200px;">
+    <%= form.hidden_field :image_data, id: 'image_data', data: {image_drop_target: "imageData"} %>
+  </div>
+
 
   <div>
     <%= form.submit 'Submit', class: 'btn btn-primary', data: { disable_with: 'Submitting...' } %>

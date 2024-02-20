@@ -19,6 +19,9 @@ application.register("google-map", GoogleMapController)
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
+import ImageDropController from "./image_drop_controller"
+application.register("image-drop", ImageDropController)
+
 import LinkRedirectController from "./link_redirect_controller"
 application.register("link-redirect", LinkRedirectController)
 
