@@ -30,9 +30,30 @@ export default class extends Controller {
         image.style.maxWidth = "200px";
         image.style.maxHeight = "200px"; // Set the max height as desired
         image.classList.add("col");
-        this.previewTarget.appendChild(image);
+
+        // Add a button to remove the image
+        const removeButton = document.createElement("button");
+        removeButton.textContent = "Remove";
+        removeButton.setAttribute("type", "button");
+        removeButton.id = "remove-image";
+        removeButton.addEventListener("click", (e) => {
+          e.stopPropagation(); // Prevent the click event from propagating
+          // image.remove(); // Remove the image element when the button is clicked
+          // removeButton.remove();
+          imageWrapper.remove();
+        });
+
+        // Wrap the image and the remove button in a div
+        const imageWrapper = document.createElement("div");
+        imageWrapper.classList.add("col")
+        imageWrapper.appendChild(image);
+        imageWrapper.appendChild(removeButton);
+
+        this.previewTarget.appendChild(imageWrapper);
         //this.imageDataTarget.value = e.target.result;
         //this.previewTarget.src = e.target.result;
+
+
       };
       reader.readAsDataURL(file);
     }
