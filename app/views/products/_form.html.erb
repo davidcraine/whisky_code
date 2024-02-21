@@ -15,31 +15,40 @@
       <%= form.label :name, class: 'col-frm-label col-form-label-lg' %>
       <%= form.text_field :name, class: 'form-control form-control-lg' %>
   </div>
-  <div class='field'>
+  <div class='field mt-3'>
       <%= form.label :description, class: 'col-frm-label col-form-label-lg' %>
       <%= form.rich_text_area :description, class: 'form-control form-control-lg' %>
   </div>
-  <div class="field" data-controller="filtered-select">
+  <div class="field mt-3" data-controller="filtered-select">
     <%= form.label :distillery, "Distillery", class: 'col-frm-label col-form-label-lg' %>
     <input type="text" placeholder="Filter distilleries"  data-action="input->filtered-select#filter" class="form-control">
-    <%= form.select :distillery, options_for_select(Distillery.all.map { |d| [d.owner_name, d.id] }), {}, data: {filtered_select_target: "select", action: "input->filtered-select#filter"},  class: 'form-select form-control ' %>
+    <%= form.select :distillery_id, options_for_select(Distillery.all.map { |d| [d.owner_name, d.id] }), {}, data: {filtered_select_target: "select", action: "input->filtered-select#filter"},  class: 'form-select form-control ' %>
   </div>
 
+  
+  <!-- 
   <div class="field">
     <%= form.label :images, class: 'col-frm-label col-form-label-lg' %>
     <%= form.file_field :images, multiple: true, class: 'form-control form-control-lg' %>
   </div>
+  -->
 
-   <div id="image_drop_target" class="drop-target container" data-controller="image-drop" data-action="dragover@image-drop=dragover dragleave@image-drop=dragleave drop@image-drop=drop">
-    <p>Drop image here</p>
+
+   <div id="image_drop_target" class="mt-3 drop-target container border boder-info border-2" style="min-height: 250px;" data-controller="image-drop" data-action="dragover@image-drop=dragover dragleave@image-drop=dragleave drop@image-drop=drop">
+      <p>Drop images here</p>
       <div class="row align-items-start"" data-image-drop-target="preview">
         <%# <img src="" alt="Preview" data-image-drop-target="preview" class="img-thumbnail" style="max-width:200px; max-height: 200px;"> %>
-        <%= form.hidden_field :image_data, id: 'image_data', data: {image_drop_target: "imageData"} %>
     </div>
+    <!-- <%= form.hidden_field :images, id: 'image', data: {image_drop_target: "imageData"} %> -->
+   <!-- File input field to capture the dropped images -->  
+    <%= form.file_field :images, multiple: true,lass: 'form-control form-control-lg', data: {image_drop_target: "fileInput"} %>
+    <!-- <input type="file" name="product[images][]" id="images" multiple class="d-none" data-target="image-drop.fileInput"> -->  
   </div>
 
 
+
+
   <div>
-    <%= form.submit 'Submit', class: 'btn btn-primary', data: { disable_with: 'Submitting...' } %>
+    <%= form.submit 'Submit', class: 'mt-3 btn btn-primary', data: { disable_with: 'Submitting...' } %>
   </div>
 <% end %>

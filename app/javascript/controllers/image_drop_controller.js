@@ -2,13 +2,14 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="image-drop"
 export default class extends Controller {
-  static targets = ["imageData", "preview"];
+  static targets = ["imageData", "preview", "fileInput"];
 
   connect() {
     this.element.addEventListener("dragover", this.dragover.bind(this));
     this.element.addEventListener("dragleave", this.dragleave.bind(this));
     this.element.addEventListener("drop", this.drop.bind(this));
   }
+
 
   dragover(event) {
     event.preventDefault();
@@ -19,9 +20,20 @@ export default class extends Controller {
     this.element.classList.remove("dragover");
   }
 
+  // The idea here is to get the file from the drop event and then add it to the element
+  // associated with the fileInputTarget. This should be an iunput element of type file
+  // e.g.  <%= form.file_field :images, multiple: true,lass: 'form-control form-control-lg', data: {image_drop_target: "fileInput"} %>
+  // that accepts multiple files.  It also generates a preview image that gets added to the lement desingated by 
+  // previewTarget, e.g. <div class="row align-items-start"" data-image-drop-target="preview">
+  // the preview image gets wrapped in an imagewrapper along with a remove button.
+  //
+  // TODO:  update the logic of the remove button to remove the file from the fileInputTarget
+  // list of files.
   drop(event) {
     event.preventDefault();
+    console.log(event.dataTransfer.files)
     const file = event.dataTransfer.files[0];
+    console.log(file)
     if (file.type.startsWith("image/")) {
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -38,8 +50,6 @@ export default class extends Controller {
         removeButton.id = "remove-image";
         removeButton.addEventListener("click", (e) => {
           e.stopPropagation(); // Prevent the click event from propagating
-          // image.remove(); // Remove the image element when the button is clicked
-          // removeButton.remove();
           imageWrapper.remove();
         });
 
@@ -50,9 +60,17 @@ export default class extends Controller {
         imageWrapper.appendChild(removeButton);
 
         this.previewTarget.appendChild(imageWrapper);
-        //this.imageDataTarget.value = e.target.result;
-        //this.previewTarget.src = e.target.result;
 
+        const currentFiles = this.fileInputTarget.files
+        const tmpDataTransfer = new DataTransfer();
+        // Add existing files to the DataTransfer object
+        Array.from(currentFiles).forEach(file => {
+          tmpDataTransfer.items.add(file);
+        });
+        tmpDataTransfer.items.add(file)
+        
+        this.fileInputTarget.files = tmpDataTransfer.files
+        console.log(this.fileInputTarget.files)
 
       };
       reader.readAsDataURL(file);
