@@ -1,6 +1,8 @@
 <div id="<%= dom_id product %>" class='row bg-light bg-gradient'>
     <div class='col col-md-1'>
-        <%= image_tag product.images.first&.variant(resize_to_limit: [100, 100]) || 'default_bottle.png' %>
+        <% product.images.each do |image| %>
+            <%= image_tag image.variant(resize_to_limit: [100, 100]) || 'default_bottle.png' %>
+        <% end %>
     </div>
     <div class='col'>
         <%= product.name%>
