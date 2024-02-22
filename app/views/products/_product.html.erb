@@ -1,9 +1,9 @@
-<div class='card'>
+<div class='card mb-3'>
     <div class='card-body'>
         <div class='card-title'>
             <div class='row'>
-                <div class='col col-md-1'>
-                    <%= image_tag product.images.first || 'default_bottle.png', style: {max_width: '100px'} %>
+                <div class='col col-md-2'>
+                    <%= image_tag product.images.first&.variant(resize_to_limit: [100, 100]) || 'default_bottle.png', style: {max_width: '100px'} %>
                 </div>
                 <div class='col col-md-4'>
                     <h3><%= product.name %></h3>
@@ -12,10 +12,11 @@
         </div>
         <div class='ard-text'>
             <%= link_to product.distillery&.owner_name, distillery_path(product.distillery) %>
-        <div id="<%= dom_id product %>" class='row bg-light bg-gradient'>
-            <div class='col col-md-1'>
+            <div id="<%= dom_id product %>" class='row bg-light bg-gradient'>
                 <% product.images.each do |image| %>
-                    <%= image_tag image.variant(resize_to_limit: [100, 100]) %>
+                    <div class='col col-md-3'>
+                        <%= image_tag image.variant(resize_to_limit: [100, 100]) %>
+                    </div>
                 <% end %>
             </div>
         </div>
