@@ -35,32 +35,85 @@ export default class extends Controller {
     const file = event.dataTransfer.files[0];
     console.log(file)
     if (file.type.startsWith("image/")) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const image = document.createElement("img");
-        image.src = e.target.result;
-        image.style.maxWidth = "200px";
-        image.style.maxHeight = "200px"; // Set the max height as desired
-        image.classList.add("col");
+        this.addFileToTarget(file);
+        this.createPreview(file);
+      // const reader = new FileReader();
+      // reader.onload = (e) => {
+      //   const image = document.createElement("img");
+      //   image.src = e.target.result;
+      //   image.style.maxWidth = "200px";
+      //   image.style.maxHeight = "200px"; // Set the max height as desired
+      //   image.classList.add("col");
 
-        // Add a button to remove the image
-        const removeButton = document.createElement("button");
-        removeButton.textContent = "Remove";
-        removeButton.setAttribute("type", "button");
-        removeButton.id = "remove-image";
-        removeButton.addEventListener("click", (e) => {
-          e.stopPropagation(); // Prevent the click event from propagating
-          imageWrapper.remove();
-        });
+      //   // Add a button to remove the image
+      //   const removeButton = document.createElement("button");
+      //   removeButton.textContent = "Remove";
+      //   removeButton.setAttribute("type", "button");
+      //   removeButton.id = "remove-image";
+      //   removeButton.addEventListener("click", (e) => {
+      //     e.stopPropagation(); // Prevent the click event from propagating
+      //     imageWrapper.remove();
+      //   });
 
-        // Wrap the image and the remove button in a div
-        const imageWrapper = document.createElement("div");
-        imageWrapper.classList.add("col")
-        imageWrapper.appendChild(image);
-        imageWrapper.appendChild(removeButton);
+      //   // Wrap the image and the remove button in a div
+      //   const imageWrapper = document.createElement("div");
+      //   imageWrapper.classList.add("col")
+      //   imageWrapper.appendChild(image);
+      //   imageWrapper.appendChild(removeButton);
 
-        this.previewTarget.appendChild(imageWrapper);
+      //   this.previewTarget.appendChild(imageWrapper);
 
+      //   const currentFiles = this.fileInputTarget.files
+      //   const tmpDataTransfer = new DataTransfer();
+      //   // Add existing files to the DataTransfer object
+      //   Array.from(currentFiles).forEach(file => {
+      //     tmpDataTransfer.items.add(file);
+      //   });
+      //   tmpDataTransfer.items.add(file)
+        
+      //   this.fileInputTarget.files = tmpDataTransfer.files
+      //   console.log(this.fileInputTarget.files)
+
+      // };
+      // reader.readAsDataURL(file);
+    }
+    this.element.classList.remove("dragover");
+  }
+
+  createPreview(file) {
+    console.log(file.lastModified);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const image = document.createElement("img");
+      image.src = e.target.result;
+      image.style.maxWidth = "200px";
+      image.style.maxHeight = "200px"; // Set the max height as desired
+      image.classList.add("col");
+      $(image).attr('name', file.name + "_" + file.lastModified); //create a unique file name that can be reference by the remove method
+
+      // Add a button to remove the image
+      const removeButton = document.createElement("button");
+      removeButton.textContent = "Remove";
+      removeButton.setAttribute("type", "button");
+      removeButton.id = "remove-image";
+      removeButton.addEventListener("click", (e) => {
+        e.stopPropagation(); // Prevent the click event from propagating
+        this.removeFileFromTarget(image);  //this removes the image from the file input field
+        imageWrapper.remove();  //this removes the preview image itself
+      });
+
+      // Wrap the image and the remove button in a div
+      const imageWrapper = document.createElement("div");
+      imageWrapper.classList.add("col")
+      imageWrapper.appendChild(image);
+      imageWrapper.appendChild(removeButton);
+
+      this.previewTarget.appendChild(imageWrapper);
+    }
+    reader.readAsDataURL(file);
+    }
+
+    addFileToTarget(file) {
         const currentFiles = this.fileInputTarget.files
         const tmpDataTransfer = new DataTransfer();
         // Add existing files to the DataTransfer object
@@ -70,11 +123,21 @@ export default class extends Controller {
         tmpDataTransfer.items.add(file)
         
         this.fileInputTarget.files = tmpDataTransfer.files
-        console.log(this.fileInputTarget.files)
-
-      };
-      reader.readAsDataURL(file);
     }
-    this.element.classList.remove("dragover");
-  }
+
+    // remove an image from the file input target
+    removeFileFromTarget(image) {
+      const imageName = $(image).attr("name");
+      const fileIndex = Array.from(this.fileInputTarget.files).findIndex((file) => (file.name + "_" + file.lastModified) === imageName);
+      if (fileIndex !== -1) {
+        const newFiles = new DataTransfer();
+        Array.from(this.fileInputTarget.files).forEach((file, index) => {
+          if (index !== fileIndex) {
+            newFiles.items.add(file);
+          }
+        });
+        this.fileInputTarget.files = newFiles.files;
+      }
+    }
+
 }
