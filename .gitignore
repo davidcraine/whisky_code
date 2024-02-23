@@ -8,6 +8,7 @@ log/
 public/assets
 
 /node_modules
+storage/
 
 
 .nx/cache
