@@ -19,5 +19,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :products
+  resources :products do
+    delete 'images/:image_id', to: 'products#destroy_image', as: 'destroy_image', on: :member
+  end
 end

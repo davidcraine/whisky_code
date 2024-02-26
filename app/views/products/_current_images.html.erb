@@ -1,0 +1,6 @@
+    <% product.images.each do |image| %>
+        <div class='col col-md-3' data-image-drop-target='currentImage'>
+            <%= image_tag image.variant(resize_to_limit: [100, 100]) %>
+            <%= button_tag 'Remove', data: { action: 'click->image-drop#removeCurrentImage',  product_id: product.id, image_id: image.id} %>
+        </div>
+    <% end %>

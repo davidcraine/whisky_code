@@ -25,23 +25,23 @@
     <%= form.select :distillery_id, options_for_select(Distillery.all.map { |d| [d.owner_name, d.id] }, selected: product&.distillery&.id), {}, data: {filtered_select_target: "select", action: "input->filtered-select#filter"},  class: 'form-select form-control ' %>
   </div>
 
-  
-  <!-- 
-  <div class="field">
-    <%= form.label :images, class: 'col-frm-label col-form-label-lg' %>
-    <%= form.file_field :images, multiple: true, class: 'form-control form-control-lg' %>
-  </div>
-  -->
+      <!-- Display existing images --> 
+    <div data-controller='image-drop'>
+      <div class='row bg-light bg-gradient mt-3'>
+        <%= label_tag "Current Images" %>
+        <%= render partial: 'current_images', locals: { product: product} %>
+      </div> 
 
 
-   <div id="image_drop_target" class="mt-3 drop-target container border boder-info border-2" style="min-height: 250px;" data-controller="image-drop" data-action="dragover@image-drop=dragover dragleave@image-drop=dragleave drop@image-drop=drop">
-      <p>Drop images here</p>
-      <div class="row align-items-start"" data-image-drop-target="preview">
+    <div id="image_drop_target" class="mt-3 drop-target container border boder-info border-2" style="min-height: 250px;" data-action="dragover@image-drop=dragover dragleave@image-drop=dragleave drop@image-drop=drop">
+        <p>Drop images here</p>
+        <div class="row align-items-start"" data-image-drop-target="preview">
+      </div>
+      <!-- <%= form.hidden_field :images, id: 'image', data: {image_drop_target: "imageData"} %> -->
+    <!-- File input field to capture the dropped images -->  
+      <%= form.file_field :images, multiple: true,lass: 'form-control form-control-lg', data: {image_drop_target: "fileInput"} %>
+      <!-- <input type="file" name="product[images][]" id="images" multiple class="d-none" data-target="image-drop.fileInput"> -->  
     </div>
-    <!-- <%= form.hidden_field :images, id: 'image', data: {image_drop_target: "imageData"} %> -->
-   <!-- File input field to capture the dropped images -->  
-    <%= form.file_field :images, multiple: true,lass: 'form-control form-control-lg', data: {image_drop_target: "fileInput"} %>
-    <!-- <input type="file" name="product[images][]" id="images" multiple class="d-none" data-target="image-drop.fileInput"> -->  
   </div>
 
   <div>

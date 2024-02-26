@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="image-drop"
 export default class extends Controller {
-  static targets = ["imageData", "preview", "fileInput"];
+  static targets = ["imageData", "preview", "fileInput", "currentImage"];
   static currentFileList = [];
 
   connect() {
@@ -134,6 +134,40 @@ export default class extends Controller {
       tmpDataTransfer.items.add(file)
       
       this.fileInputTarget.files = tmpDataTransfer.files
+    }
+
+    async removeCurrentImage(event) {
+      event.preventDefault();
+
+      console.log('in removeCurrentImage');
+      const confirmed = confirm("Are you sure you want to delete this image?");
+      if (!confirmed) {
+        return;
+      }
+  
+      const currentTarget = event.target;
+      const imageId = currentTarget.dataset.imageId;
+      const productId = currentTarget.dataset.productId;
+    
+
+      console.log(imageId);
+      try {
+        const response = await fetch(`/products/${productId}/images/${imageId}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+          }
+        });
+        if (response.ok) {
+          console.log(currentTarget);
+          currentTarget.closest("[data-image-drop-target='currentImage']").remove();
+        } else {
+          console.error("Failed to delete image");
+        }
+      } catch (error) {
+        console.error("Failed to delete image:", error);
+      }
     }
 
 }
