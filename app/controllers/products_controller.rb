@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: %i[show edit update destroy destroy_image create_comment]
+  before_action :set_product, only: %i[show edit update destroy destroy_image create_comment destroy_comment]
 
   # GET /products or /products.json
   def index
@@ -68,7 +68,6 @@ class ProductsController < ApplicationController
   end
 
   def create_comment
-    puts "***************Comment params: #{comment_params}"
     @comment = @product.comments.build(comment_params)
 
     if @comment.save
@@ -80,6 +79,17 @@ class ProductsController < ApplicationController
       end
     else
       # Handle errors
+    end
+  end
+
+  def destroy_comment
+    @product.comments.find(params[:comment_id])&.destroy!
+    @product.reload
+    respond_to do |format|
+      format.html { redirect_to @product }
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace("comments", "<div id='comments'>" + render_to_string(@product.comments) + "</div")
+      end
     end
   end
 
@@ -96,6 +106,6 @@ class ProductsController < ApplicationController
   end
 
   def comment_params
-    params.fetch(:comment, {}).permit(:content)
+    params.fetch(:comment, {}).permit(:content, :id)
   end
 end

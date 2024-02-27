@@ -3,11 +3,12 @@
 
     <%= render @product %>
 
+    <%= label_tag :comments, 'Comments', class: 'h3 mt-2'%>
     <div id="comments">
         <%= render @product.comments %>
     </div>
-    <%= form_with(model: [@product, @product.comments.build], url: create_comment_product_path, remote: true, data: { controller: 'comment-form'}) do |form| %>
-        <%= form.rich_text_area :content %>
+    <%= form_with(model: [@product, @product.comments.build], url: create_comment_product_path, remote: true, data: { controller: 'comment-form'}, class: 'mt-5 mb-3') do |form| %>
+        <%= form.rich_text_area :content, placeholder: 'Add comment' %>
         <%= form.submit "Add Comment" %>
     <% end %>
 

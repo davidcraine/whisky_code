@@ -24,5 +24,6 @@ Rails.application.routes.draw do
       post :create_comment
     end
     delete 'images/:image_id', to: 'products#destroy_image', as: 'destroy_image', on: :member
+    delete 'comments/:comment_id', to: 'products#destroy_comment', as: 'destroy_comment', on: :member
   end
 end
