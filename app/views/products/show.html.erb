@@ -3,6 +3,14 @@
 
     <%= render @product %>
 
+    <div id="comments">
+        <%= render @product.comments %>
+    </div>
+    <%= form_with(model: [@product, @product.comments.build], url: create_comment_product_path, remote: true, data: { controller: 'comment-form'}) do |form| %>
+        <%= form.rich_text_area :content %>
+        <%= form.submit "Add Comment" %>
+    <% end %>
+
   <div>
     <%= link_to "Edit this product", edit_product_path(@product) %> |
     <%= link_to "Back to products", products_path %>
@@ -10,3 +18,4 @@
     <%= button_to "Destroy this product", @product, method: :delete %>
   </div>
 </div>
+

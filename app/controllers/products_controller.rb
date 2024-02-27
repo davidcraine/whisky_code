@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: %i[show edit update destroy destroy_image]
+  before_action :set_product, only: %i[show edit update destroy destroy_image create_comment]
 
   # GET /products or /products.json
   def index
@@ -7,7 +7,12 @@ class ProductsController < ApplicationController
   end
 
   # GET /products/1 or /products/1.json
-  def show; end
+  def show
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
+  end
 
   # GET /products/new
   def new
@@ -62,6 +67,22 @@ class ProductsController < ApplicationController
     head :no_content
   end
 
+  def create_comment
+    puts "***************Comment params: #{comment_params}"
+    @comment = @product.comments.build(comment_params)
+
+    if @comment.save
+      respond_to do |format|
+        format.html { redirect_to @product }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.append("comments", @comment)
+        end
+      end
+    else
+      # Handle errors
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -72,5 +93,9 @@ class ProductsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def product_params
     params.fetch(:product, {}).permit(:name, :description, :distillery_id, images: [])
+  end
+
+  def comment_params
+    params.fetch(:comment, {}).permit(:content)
   end
 end
