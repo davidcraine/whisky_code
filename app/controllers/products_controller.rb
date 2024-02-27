@@ -88,7 +88,8 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to @product }
       format.turbo_stream do
-        render turbo_stream: turbo_stream.replace("comments", "<div id='comments'>" + render_to_string(@product.comments) + "</div")
+        # render turbo_stream: turbo_stream.replace("comments", "<div id='comments'>" + render_to_string(@product.comments) + "</div")
+        render turbo_stream: turbo_stream.replace("comments", partial: 'comments/comments', locals: { comments: @product.comments })
       end
     end
   end
