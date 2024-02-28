@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: %i[show edit update destroy destroy_image create_comment destroy_comment]
+  before_action :set_product, only: %i[show edit update destroy destroy_image create_comment destroy_comment update_comment]
 
   # GET /products or /products.json
   def index
@@ -85,6 +85,18 @@ class ProductsController < ApplicationController
   def destroy_comment
     @product.comments.find(params[:comment_id])&.destroy!
     @product.reload
+    respond_to do |format|
+      format.html { redirect_to @product }
+      format.turbo_stream do
+        # render turbo_stream: turbo_stream.replace("comments", "<div id='comments'>" + render_to_string(@product.comments) + "</div")
+        render turbo_stream: turbo_stream.replace("comments", partial: 'comments/comments', locals: { comments: @product.comments })
+      end
+    end
+  end
+
+  def update_comment
+    comment = @product.comments.find(params[:comment_id])
+    comment.update(comment_params)
     respond_to do |format|
       format.html { redirect_to @product }
       format.turbo_stream do

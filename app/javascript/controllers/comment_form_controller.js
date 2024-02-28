@@ -26,15 +26,10 @@ export default class extends Controller {
   edit(event) {
     console.log('in edit');
     event.preventDefault();
-    console.log(event.target.dataset.commentId);
     let commentId = event.target.dataset.commentId;
-    console.log(commentId);
-    console.log(this.element);
     let selector = `[data-comment-form-target="editForm"][data-comment-id="${commentId}"]`;
-    console.log(selector);
     let editForm = $(this.element).find(selector);
-    console.log(editForm)
-    editForm.css('display', 'block')
+    editForm.toggle();
   }
 
   save(event) {
