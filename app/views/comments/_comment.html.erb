@@ -1,5 +1,13 @@
 <div id="comment_<%= comment.id %>" class="comment row">
   <div class='col-3'><%= time_ago_in_words(comment.created_at) %> ago</div>
   <div class='col-6'><%= comment.content %></div>
-  <div class='col-2'><%= link_to "delete", destroy_comment_product_path(comment.commentable, comment),data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'} %></div>
+  <div class='col-1'><%= link_to "delete", destroy_comment_product_path(comment.commentable, comment),data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class: 'btn btn-outline-primary btn-sm' %></div>
+  <div class='col-1'><%= link_to "edit", '#', data: { action: "click->comment-form#edit", comment_id: comment.id }, class: 'btn btn-outline-primary btn-sm' %></div>
+
+  <div data-comment-form-target="editForm" data-comment-id="<%= comment.id %>" style="display: none;">
+    <%= form_with(model: [comment.commentable, comment], url: update_comment_product_path(comment.commentable, comment), remote: true) do |f| %>
+      <%= f.rich_text_area :content %>
+      <%= f.submit "Save" %>
+    <% end %>
+  </div>
 </div>
