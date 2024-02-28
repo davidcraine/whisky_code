@@ -31,31 +31,4 @@ export default class extends Controller {
     let editForm = $(this.element).find(selector);
     editForm.toggle();
   }
-
-  save(event) {
-    if (event.keyCode === 13) {
-      this.contentTarget.contentEditable = false;
-      let commentId = this.element.dataset.commentId;
-      let content = this.contentTarget.innerText.trim();
-
-      fetch(`/comments/${commentId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "text/html, application/xhtml+xml",
-          "X-CSRF-Token": Rails.csrfToken()
-        },
-        body: JSON.stringify({ comment: { content: content } })
-      }).then(response => {
-        if (response.ok) {
-          response.text().then(html => {
-            let template = document.createElement("template");
-            template.innerHTML = html.trim();
-            let newContent = template.content.firstChild;
-            this.contentTarget.replaceWith(newContent);
-          });
-        }
-      });
-    }
-  }
 }

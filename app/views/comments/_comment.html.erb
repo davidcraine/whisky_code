@@ -4,6 +4,12 @@
   <div class='col-1'><%= link_to "delete", destroy_comment_product_path(comment.commentable, comment),data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class: 'btn btn-outline-primary btn-sm' %></div>
   <div class='col-1'><%= link_to "edit", '#', data: { action: "click->comment-form#edit", comment_id: comment.id }, class: 'btn btn-outline-primary btn-sm' %></div>
 
+<!-- 
+  This approach creates a hidden input form for every comemnt; which is not ideal when therea re a large number of comments
+  An alternative would be to create an empty turbo frame which then gets populated by call the the server via the edit button.
+  The corresponding edit action should be able to use a turbo stream to replace the contents fo the frame with a html
+  fragment that matches the code below.
+-->
   <div data-comment-form-target="editForm" data-comment-id="<%= comment.id %>" style="display: none;">
     <%= form_with(model: [comment.commentable, comment], url: update_comment_product_path(comment.commentable, comment), remote: true) do |f| %>
       <%= f.rich_text_area :content %>
