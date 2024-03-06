@@ -1,13 +1,5 @@
 <div class="container-fluid">
     <p class="h1 text-center">Welcome to Whisky Code</p>
-    <div class="d-flex justify-content-center align-items-center mb-2">
-        <%= link_to 'See Distillery List', distilleries_path, class: 'btn btn-primary' %>
-        &nbsp;
-        <%# I use the link-redirect controller here to force the window.href to load.  It seems
-        that for some reason the normal redirect is not reloading the whole page.  I suspect
-        it has something to do with turbo. %>
-        <%= link_to 'Distillery Heatmap', map_display_path(state: 'PA'), class: 'btn btn-primary', data: { controller: 'link-redirect', action: 'link-redirect#click' } %>
-    </div>
 
     <div class="d-flex justify-content-center align-items-center">
         <%= image_tag('WhiskyCodeCover.png', style: 'width: 75%; height: auto;', class: 'img-fluid') %>
